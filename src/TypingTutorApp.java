@@ -1,5 +1,3 @@
-package typingTutor;
-
 import javax.swing.*;
 
 import java.awt.Color;

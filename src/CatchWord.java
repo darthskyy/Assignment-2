@@ -1,5 +1,3 @@
-package typingTutor;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 //Thread to monitor the word that has been typed.

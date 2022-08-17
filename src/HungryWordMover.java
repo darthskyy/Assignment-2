@@ -1,18 +1,18 @@
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicBoolean;;
 
-public class WordMover extends Thread {
-	private FallingWord myWord;
+public class HungryWordMover extends Thread {
+    private FallingWord myWord;
 	private AtomicBoolean done;
 	private AtomicBoolean pause; 
 	private Score score;
 	CountDownLatch startLatch; //so all can start at once
 	
-	WordMover( FallingWord word) {
+	HungryWordMover( FallingWord word) {
 		myWord = word;
 	}
-	
-	WordMover( FallingWord word,WordDictionary dict, Score score,
+
+	HungryWordMover( FallingWord word,WordDictionary dict, Score score,
 			CountDownLatch startLatch, AtomicBoolean d, AtomicBoolean p) {
 		this(word);
 		this.startLatch = startLatch;
@@ -20,9 +20,7 @@ public class WordMover extends Thread {
 		this.done=d;
 		this.pause=p;
 	}
-	
-	
-	
+
 	public void run() {
 
 		//System.out.println(myWord.getWord() + " falling speed = " + myWord.getSpeed());
@@ -53,5 +51,4 @@ public class WordMover extends Thread {
 			myWord.resetWord();
 		}
 	}
-	
 }

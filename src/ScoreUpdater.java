@@ -1,5 +1,3 @@
-package typingTutor;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JLabel;

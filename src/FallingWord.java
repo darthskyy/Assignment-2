@@ -1,5 +1,3 @@
-package typingTutor;
-
 public class FallingWord {
 	private String word; // the word
 	private int x; //position - width
@@ -105,6 +103,10 @@ public class FallingWord {
 
 	public synchronized  void drop(int inc) {
 		setY(y+inc);
+	}
+
+	public synchronized void slide(int inc) {
+		setX(x+inc);
 	}
 	
 	public synchronized  boolean dropped() {
