@@ -7,6 +7,7 @@ public class CatchWord extends Thread {
 	static AtomicBoolean pause; //REMOVE
 	
 	private static  FallingWord[] words; //list of words
+	private static HungryWord hWord;
 	private static int noWords; //how many
 	private static Score score; //user score
 	
@@ -14,6 +15,9 @@ public class CatchWord extends Thread {
 		target=typedWord;
 	}
 	
+	public static void setHungryWord(HungryWord hungryWord) {
+		hWord = hungryWord;
+	}
 	public static void setWords(FallingWord[] wordList) {
 		words=wordList;	
 		noWords = words.length;
@@ -29,16 +33,22 @@ public class CatchWord extends Thread {
 	}
 	
 	public void run() {
-		int i=0;
-		while (i<noWords) {		
-			while(pause.get()) {};
-			if (words[i].matchWord(target)) {
-				System.out.println( " score! '" + target); //for checking
-				score.caughtWord(target.length());	
-				//FallingWord.increaseSpeed();
-				break;
+		if (hWord.matchWord(target)) {
+			System.out.println( " score! '" + target); //for checking
+			score.caughtWord(target.length());	
+		}
+		else {
+			int i=0;
+			while (i<noWords) {		
+				while(pause.get()) {};
+				if (words[i].matchWord(target)) {
+					System.out.println( " score! '" + target); //for checking
+					score.caughtWord(target.length());	
+					//FallingWord.increaseSpeed();
+					break;
+				}
+			   i++;
 			}
-		   i++;
 		}
 		
 	}	

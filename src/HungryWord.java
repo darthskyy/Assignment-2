@@ -14,8 +14,8 @@ public class HungryWord {
 	HungryWord() { //constructor with defaults
 		word="computer"; // a default - not used
 		x=0;
-		y=0;	
-		maxX=300;
+		y=500;	
+		maxX=1000;
 		slid=false;
 		slidingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
 	}
@@ -48,7 +48,7 @@ public class HungryWord {
 			x=maxX;
 			slid=true; //user did not manage to catch this word
 		}
-		this.y=y;
+		this.x=x;
 	}
 	
 	public synchronized  void setY(int y) {
@@ -85,7 +85,7 @@ public class HungryWord {
 
 	public synchronized void resetWord() {
 		resetPos();
-		word=dict.getNewWord();
+		word="josephine";
 		slid=false;
 		slidingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
