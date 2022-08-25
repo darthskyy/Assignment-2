@@ -1,3 +1,5 @@
+
+
 public class Score {
 	private int missedWords;
 	private int caughtWords;

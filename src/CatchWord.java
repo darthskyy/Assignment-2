@@ -1,3 +1,5 @@
+
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 //Thread to monitor the word that has been typed.
@@ -31,24 +33,24 @@ public class CatchWord extends Thread {
 		done=d;
 		pause=p;
 	}
-	
+
 	public void run() {
-		if (hWord.matchWord(target)) {
-			System.out.println( " score! '" + target); //for checking
-			score.caughtWord(target.length());	
-		}
-		else {
-			int i=0;
-			while (i<noWords) {		
-				while(pause.get()) {};
-				if (words[i].matchWord(target)) {
-					System.out.println( " score! '" + target); //for checking
-					score.caughtWord(target.length());	
-					//FallingWord.increaseSpeed();
-					break;
+		int i=0;
+		while (i<noWords) {		
+			while(pause.get()) {};
+			if (words[i].matchWord(target)) {
+				FallingWord max = words[i];
+				for (int j=i+1; j<noWords; j++) {
+					if (words[j].matchWord(target) && words[j].getY()>max.getY())
+						max = words[j];
 				}
-			   i++;
+				System.out.println( " score! '" + target); //for checking
+				score.caughtWord(target.length());	
+				//FallingWord.increaseSpeed();
+				max.resetWord();
+				break;
 			}
+		   i++;
 		}
 		
 	}	
