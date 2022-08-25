@@ -1,4 +1,4 @@
-package typingTutor;
+
 
 import javax.swing.*;
 

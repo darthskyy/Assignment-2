@@ -1,4 +1,4 @@
-package typingTutor;
+
 
 public class FallingWord {
 	private String word; // the word
@@ -96,7 +96,7 @@ public class FallingWord {
 	public synchronized boolean matchWord(String typedText) {
 		//System.out.println("Matching against: "+text);
 		if (typedText.equals(this.word)) {
-			resetWord();
+			// resetWord();
 			return true;
 		}
 		else

@@ -1,4 +1,4 @@
-package typingTutor;
+
 
 public class Score {
 	private int missedWords;
