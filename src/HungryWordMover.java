@@ -6,15 +6,17 @@ public class HungryWordMover extends Thread {
 	private AtomicBoolean done;
 	private AtomicBoolean pause; 
 	private Score score;
+	private FallingWord[] fallingWords;
 	CountDownLatch startLatch; //so all can start at once
 	
 	HungryWordMover( HungryWord word) {
 		myWord = word;
 	}
 
-	HungryWordMover( HungryWord word,WordDictionary dict, Score score,
+	HungryWordMover( HungryWord word, FallingWord[] falling, WordDictionary dict, Score score,
 			CountDownLatch startLatch, AtomicBoolean d, AtomicBoolean p) {
 		this(word);
+		this.fallingWords = falling;
 		this.startLatch = startLatch;
 		this.score=score;
 		this.done=d;
@@ -36,6 +38,13 @@ public class HungryWordMover extends Thread {
 			//animate the word
 			while (!myWord.slid() && !done.get() && !myWord.waiting()) {
 				    myWord.slide(10);
+					int noWords = fallingWords.length;
+					for (int i = 0; i<noWords; i++) {
+						if (myWord.collides(fallingWords[i])) {
+							fallingWords[i].resetWord();
+							score.missedWord();
+						}
+					}
 					try {
 						sleep(myWord.getSpeed());
 					} catch (InterruptedException e) {

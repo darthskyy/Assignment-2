@@ -116,4 +116,16 @@ public class FallingWord {
 		return dropped;
 	}
 
+
+	// the box methods are for getting the bounds of the word
+	public synchronized int[] getBox() {
+		int x1,x2,y1,y2;
+		x1 = getX();
+		x2 = x1 + getWord().length()*16;
+		y2 = getY();
+		y1 = y2 - 16;
+
+		int[] array = {x1,x2,y1,y2};
+		return array;
+	}
 }

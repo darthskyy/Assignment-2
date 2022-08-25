@@ -41,23 +41,27 @@ public class GamePanel extends JPanel implements Runnable {
 		    g.fillRect(borderWidth,height,width,borderWidth); //draw danger zone
 
 		    g.setColor(Color.black);
-		    g.setFont(new Font("Arial", Font.PLAIN, 26));
-		   //draw the words
+		    g.setFont(new Font("Monospaced", Font.PLAIN, 26));
+			//draw the words
 		    if (!started.get()) {
-		    	g.setFont(new Font("Arial", Font.BOLD, 26));
+				g.setFont(new Font("Monospaced", Font.BOLD, 17));
 				g.drawString("Type all the words before they hit the red zone,press enter after each one.",borderWidth*2,height/2);	
 		    	
 		    }
 		    else if (!done.get()) {
+				g.setFont(new Font("Monospaced", Font.BOLD, 26));
 				for (int i = 0; i < noHungryWords; i++) {
+					// g.setColor(Color.BLUE);
+					// g.fillRect(hungryWords[i].getX()-hungryWords[i].getWord().length()*15, hungryWords[i].getY()+8, hungryWords[i].getWord().length()*15, 16);
 					g.setColor(Color.green);
 					// the -length*17 is to account for the entire length of the hungry word so that it doesn't appear the whole word first
-					g.drawString(hungryWords[i].getWord(),hungryWords[i].getX()-hungryWords[i].getWord().length()*17,hungryWords[i].getY()+borderWidth);
-					// g.setColor(Color.lightGray); //change colour of pen
-					// g.fillRect(borderWidth,0,width,borderWidth);
+					g.drawString(hungryWords[i].getWord(),hungryWords[i].getX()-hungryWords[i].getWord().length()*16,hungryWords[i].getY()+borderWidth);
+					
 				}
 				// System.out.println("hungry word drawn");
-		    	for (int i=0;i<noWords-1;i++){	    	
+		    	for (int i=0;i<noWords-1;i++){	   
+					// g.setColor(Color.RED);
+					// g.fillRect(words[i].getX()+borderWidth, words[i].getY()-16, words[i].getWord().length()*15, 16); 	
 					g.setColor(Color.black);
 		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	
 				}

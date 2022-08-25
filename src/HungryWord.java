@@ -126,4 +126,36 @@ public class HungryWord {
 		return waiting;
 	}
 
+
+	// the box methods are for getting the bounds of the word
+	public synchronized int[] getBox() {
+		int x1,x2,y1,y2;
+		x1 = getX() - getWord().length()*15;
+		x2 = x1 + getWord().length()*15;
+		y2 = getY()+16;
+		y1 = y2 - 16;
+
+		int[] array = {x1,x2,y1,y2};
+		return array;
+	}
+
+	public synchronized boolean collides(FallingWord fallingWord) {
+		int[] coordinates = getBox();
+		int[] coordinatesFalling = fallingWord.getBox();
+		
+		if ((coordinates[0]<=coordinatesFalling[1] && coordinates[0]>=coordinatesFalling[0]) || (coordinatesFalling[0]<=coordinates[1] && coordinatesFalling[0]>=coordinates[0])) {
+			if ((coordinates[2]<=coordinatesFalling[3] && coordinates[2]>=coordinatesFalling[2]) || (coordinatesFalling[2]<=coordinates[3] && coordinatesFalling[2]>=coordinates[2])) {
+				System.out.print("-------------- hungry"+getWord() + " ");
+				for (int item: coordinates) System.out.print(item+" ");
+				
+				System.out.println();
+				System.out.print("--------------"+fallingWord.getWord() + " ");
+				for (int item: coordinatesFalling) System.out.print(item+" ");
+				System.out.println();
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

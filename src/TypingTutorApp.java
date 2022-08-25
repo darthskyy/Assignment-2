@@ -22,9 +22,10 @@ public class TypingTutorApp {
    	static int frameX=1000;
 	static int frameY=600;
 	static int yLimit=480;
-	static int xLimit=800;
+	static int xLimit=1000;
 
-	static WordDictionary dict = new WordDictionary(); //use default dictionary, to read from file eventually
+	static WordDictionary dict = new WordDictionary("normal"); //use default dictionary, to read from file eventually
+	static WordDictionary hungryDict = new WordDictionary("hungry"); //use default dictionary, to read from file eventually
 
 	static FallingWord[] words;
 	static WordMover[] wrdShft;
@@ -196,7 +197,7 @@ public class TypingTutorApp {
 		}
 
 		for (int i=0;i<noHungryWords;i++) {
-			hungryWords[i]=new HungryWord(dict.getNewWord(),gameWindow.getValidYpos(),xLimit, gameWindow.height);
+			hungryWords[i]=new HungryWord(hungryDict.getNewWord(),gameWindow.getValidYpos(),xLimit, gameWindow.height);
 		}
 
 		//create threads to move them
@@ -205,7 +206,7 @@ public class TypingTutorApp {
 	    }
 
 		for (int i=0;i<noHungryWords;i++) {
-			hungryWrdShft[i] = new HungryWordMover(hungryWords[i],dict,score,startLatch,done,pause);
+			hungryWrdShft[i] = new HungryWordMover(hungryWords[i],words,hungryDict,score,startLatch,done,pause);
 		}
 
         //word movers waiting on starting line
@@ -243,10 +244,11 @@ public static void main(String[] args) {
 		pause = new AtomicBoolean(false);
 		won = new AtomicBoolean(false);
 		
-		totalWords=24;
+		totalWords=25;
 		noWords=6;
 		noHungryWords=1;
-		dict= new WordDictionary();
+		dict= new WordDictionary("normal");
+		hungryDict = new WordDictionary("hungry");
 		
 		//deal with command line arguments
 		if (args.length==2) {
@@ -263,7 +265,7 @@ public static void main(String[] args) {
 		}
 				
 		FallingWord.dict=dict; //set the class dictionary for the words.
-		HungryWord.dict = dict;
+		HungryWord.dict = hungryDict;
 		words = new FallingWord[noWords];  //array for the  current chosen words from dict
 		wrdShft = new WordMover[noWords]; //array for the threads that animate the words
 		hungryWords = new HungryWord[noHungryWords];
