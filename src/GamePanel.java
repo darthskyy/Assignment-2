@@ -49,25 +49,36 @@ public class GamePanel extends JPanel implements Runnable {
 		    	
 		    }
 		    else if (!done.get()) {
-				g.setColor(Color.green);
 				for (int i = 0; i < noHungryWords; i++) {
+					g.setColor(Color.green);
 					// the -length*17 is to account for the entire length of the hungry word so that it doesn't appear the whole word first
 					g.drawString(hungryWords[i].getWord(),hungryWords[i].getX()-hungryWords[i].getWord().length()*17,hungryWords[i].getY()+borderWidth);
+					// g.setColor(Color.lightGray); //change colour of pen
+					// g.fillRect(borderWidth,0,width,borderWidth);
 				}
 				// System.out.println("hungry word drawn");
-				g.setColor(Color.black);
 		    	for (int i=0;i<noWords-1;i++){	    	
+					g.setColor(Color.black);
 		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	
-		    	}
-		    	g.setColor(Color.lightGray); //change colour of pen
-		    	g.fillRect(borderWidth,0,width,borderWidth);
+				}
+				g.setColor(Color.lightGray); //change colour of pen
+				g.fillRect(0,0,width+borderWidth*2,borderWidth);
+				g.fillRect(0, 0, borderWidth, height+borderWidth);
+				g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		   }
 		   else { if (won.get()) {
 			   g.setFont(new Font("Arial", Font.BOLD, 36));
-			   g.drawString("Well done!",width/3,height/2);	
+			   g.drawString("Well done!",width/3,height/2);
+			   g.setColor(Color.lightGray);
+			   g.fillRect(0,0,width+borderWidth*2,borderWidth);
+			   g.fillRect(0, 0, borderWidth, height+borderWidth);
+			   g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		   } else {
 			   g.setFont(new Font("Arial", Font.BOLD, 36));
-			   g.drawString("Game over!",width/2,height/2);	
+			   g.drawString("Game over!",width/2,height/2);
+			   g.fillRect(0,0,width+borderWidth*2,borderWidth);
+			   g.fillRect(0, 0, borderWidth, height+borderWidth);
+			   g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		   }
 		   }
 		}
