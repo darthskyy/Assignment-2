@@ -2,9 +2,10 @@ public class HungryWord {
 	private String word; // the word
 	private int x; //position - width
 	private int y; // postion - height
-	private int maxX; //maximum height
+	private int maxX, boundY; //maximum height
 	private boolean slid; //flag for if user does not manage to catch word in time
 	
+	private boolean waiting = true;
 	private int slidingSpeed; //how fast this word is
 	private static int maxWait=1000;
 	private static int minWait=100;
@@ -25,10 +26,11 @@ public class HungryWord {
 		this.word=text;
 	}
 	
-	HungryWord(String text,int y, int maxX) { //most commonly used constructor - sets it all.
+	HungryWord(String text,int y, int maxX, int boundY) { //most commonly used constructor - sets it all.
 		this(text);
 		this.y=y; //only need to set y, word is at top of screen at start
 		this.maxX=maxX;
+		this.boundY=boundY;
 	}
 	
 	public static void increaseSpeed( ) {
@@ -80,12 +82,13 @@ public class HungryWord {
 		setX(x);
 	}
 	public synchronized void resetPos() {
-		setX(0);
+		int y = (int)(Math.random()*boundY);
+		setPos(0, y);
 	}
 
 	public synchronized void resetWord() {
 		resetPos();
-		word="josephine";
+		word=dict.getNewWord();
 		slid=false;
 		slidingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
@@ -94,7 +97,7 @@ public class HungryWord {
 	public synchronized boolean matchWord(String typedText) {
 		//System.out.println("Matching against: "+text);
 		if (typedText.equals(this.word)) {
-			resetWord();
+			// resetWord();
 			return true;
 		}
 		else
@@ -107,6 +110,20 @@ public class HungryWord {
 	
 	public synchronized  boolean slid() {
 		return slid;
+	}
+
+	// the waiting methods are to pace the hungry word into
+	// appearing at random moments in a ten second span
+	public synchronized void startWaiting() {
+		waiting = true;
+	}
+
+	public synchronized void stopWaiting() {
+		waiting = false;
+	}
+
+	public synchronized boolean waiting() {
+		return waiting;
 	}
 
 }

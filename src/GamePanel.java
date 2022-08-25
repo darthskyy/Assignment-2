@@ -14,23 +14,28 @@ public class GamePanel extends JPanel implements Runnable {
 		private AtomicBoolean won ; //REMOVE
 
 		private FallingWord[] words;
-		private HungryWord hWord;
-		private int noWords;
+		private HungryWord[] hungryWords;
+		private int noWords, noHungryWords;
+		public int width, height;
 		private final static int borderWidth=25; //appearance - border
 
-		GamePanel(FallingWord[] words, HungryWord hWord, int maxY,	
+		GamePanel () {
+
+		}
+		GamePanel(FallingWord[] words, HungryWord[] hungryWords, int maxY,	
 				 AtomicBoolean d, AtomicBoolean s, AtomicBoolean w) {
 			this.words=words; //shared word list
-			this.hWord = hWord;
+			this.hungryWords = hungryWords;
 			noWords = words.length; //only need to do this once
+			noHungryWords = hungryWords.length;
 			done=d; //REMOVE
 			started=s; //REMOVE
 			won=w; //REMOVE
 		}
 		
 		public void paintComponent(Graphics g) {
-		    int width = getWidth()-borderWidth*2;
-		    int height = getHeight()-borderWidth*2;
+		    width = getWidth()-borderWidth*2;
+		    height = getHeight()-borderWidth*2;
 		    g.clearRect(borderWidth,borderWidth,width,height);//the active space
 		    g.setColor(Color.pink); //change colour of pen
 		    g.fillRect(borderWidth,height,width,borderWidth); //draw danger zone
@@ -44,8 +49,13 @@ public class GamePanel extends JPanel implements Runnable {
 		    	
 		    }
 		    else if (!done.get()) {
-				g.drawString(hWord.getWord(),hWord.getX(),hWord.getY()+borderWidth);
+				g.setColor(Color.green);
+				for (int i = 0; i < noHungryWords; i++) {
+					// the -length*17 is to account for the entire length of the hungry word so that it doesn't appear the whole word first
+					g.drawString(hungryWords[i].getWord(),hungryWords[i].getX()-hungryWords[i].getWord().length()*17,hungryWords[i].getY()+borderWidth);
+				}
 				// System.out.println("hungry word drawn");
+				g.setColor(Color.black);
 		    	for (int i=0;i<noWords-1;i++){	    	
 		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	
 		    	}

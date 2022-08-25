@@ -4,7 +4,7 @@ public class FallingWord {
 	private String word; // the word
 	private int x; //position - width
 	private int y; // postion - height
-	private int maxY; //maximum height
+	private int maxY, boundX; //maximum height
 	private boolean dropped; //flag for if user does not manage to catch word in time
 	
 	private int fallingSpeed; //how fast this word is
@@ -27,10 +27,11 @@ public class FallingWord {
 		this.word=text;
 	}
 	
-	FallingWord(String text,int x, int maxY) { //most commonly used constructor - sets it all.
+	FallingWord(String text,int x, int maxY, int boundX) { //most commonly used constructor - sets it all.
 		this(text);
 		this.x=x; //only need to set x, word is at top of screen at start
 		this.maxY=maxY;
+		this.boundX=boundX;
 	}
 	
 	public static void increaseSpeed( ) {

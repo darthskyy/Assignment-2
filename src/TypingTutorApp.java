@@ -15,7 +15,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TypingTutorApp {
 //shared class variables
 	static int noWords=4;
+	static int noHungryWords=1;
 	static int totalWords;
+	static int totalHungryWords;
 
    	static int frameX=1000;
 	static int frameY=600;
@@ -26,8 +28,10 @@ public class TypingTutorApp {
 
 	static FallingWord[] words;
 	static WordMover[] wrdShft;
-	static HungryWord hungryWord = new HungryWord("josephine", 300, xLimit);
-	static HungryWordMover hungryWrdShft;
+	static HungryWord[] hungryWords;
+	static HungryWordMover[] hungryWrdShft;
+	// static HungryWord hungryWord = new HungryWord("josephine", 300, xLimit);
+	// static HungryWordMover hungryWrdShft;
 	static CountDownLatch startLatch; //so threads can start at once
 	
 	static AtomicBoolean started;  
@@ -51,7 +55,7 @@ public class TypingTutorApp {
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
       	g.setSize(frameX,frameY);
  
-		gameWindow = new GamePanel(words,hungryWord,yLimit,done,started,won);
+		gameWindow = new GamePanel(words,hungryWords,yLimit,done,started,won);
 		gameWindow.setSize(frameX,yLimit+100);
 	    g.add(gameWindow);
 	    
@@ -188,19 +192,31 @@ public class TypingTutorApp {
 		score.reset();
 	  	//initialize shared array of current words with the words for this game
 		for (int i=0;i<noWords;i++) {
-			words[i]=new FallingWord(dict.getNewWord(),gameWindow.getValidXpos(),yLimit);
+			words[i]=new FallingWord(dict.getNewWord(),gameWindow.getValidXpos(),yLimit, gameWindow.height);
 		}
+
+		for (int i=0;i<noHungryWords;i++) {
+			hungryWords[i]=new HungryWord(dict.getNewWord(),gameWindow.getValidYpos(),xLimit, gameWindow.height);
+		}
+
 		//create threads to move them
 	    for (int i=0;i<noWords;i++) {
 	    		wrdShft[i] = new WordMover(words[i],dict,score,startLatch,done,pause);
 	    }
+
+		for (int i=0;i<noHungryWords;i++) {
+			hungryWrdShft[i] = new HungryWordMover(hungryWords[i],dict,score,startLatch,done,pause);
+		}
+
         //word movers waiting on starting line
      	for (int i=0;i<noWords;i++) {
      		wrdShft[i] .start();
      	}
-		hungryWord = new HungryWord("josephine", 300, xLimit);
-		hungryWrdShft = new HungryWordMover(hungryWord, dict, score, startLatch, done, pause);
-		hungryWrdShft.start();
+
+		for (int i=0; i<noHungryWords; i++) {
+			hungryWrdShft[i].start();
+		}
+		
 	}
 	
 public static String[] getDictFromFile(String filename) {
@@ -229,6 +245,7 @@ public static void main(String[] args) {
 		
 		totalWords=24;
 		noWords=6;
+		noHungryWords=1;
 		dict= new WordDictionary();
 		
 		//deal with command line arguments
@@ -249,9 +266,11 @@ public static void main(String[] args) {
 		HungryWord.dict = dict;
 		words = new FallingWord[noWords];  //array for the  current chosen words from dict
 		wrdShft = new WordMover[noWords]; //array for the threads that animate the words
-		
+		hungryWords = new HungryWord[noHungryWords];
+		hungryWrdShft = new HungryWordMover[noHungryWords];
+
 		CatchWord.setWords(words);  //class setter - static method
-		CatchWord.setHungryWord(hungryWord);
+		CatchWord.setHungryWord(hungryWords);
 		CatchWord.setScore(score);  //class setter - static method
 		CatchWord.setFlags(done,pause); //class setter - static method
 

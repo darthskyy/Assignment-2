@@ -8,17 +8,19 @@ public class CatchWord extends Thread {
 	static AtomicBoolean done ; //REMOVE
 	static AtomicBoolean pause; //REMOVE
 	
-	private static  FallingWord[] words; //list of words
+	private static FallingWord[] words; //list of words
 	private static HungryWord hWord;
-	private static int noWords; //how many
+	private static HungryWord[] hungryWords;
+	private static int noWords, noHungryWords; //how many
 	private static Score score; //user score
 	
 	CatchWord(String typedWord) {
 		target=typedWord;
 	}
 	
-	public static void setHungryWord(HungryWord hungryWord) {
-		hWord = hungryWord;
+	public static void setHungryWord(HungryWord[] hungryWordsList) {
+		hungryWords = hungryWordsList;
+		noHungryWords = hungryWords.length;
 	}
 	public static void setWords(FallingWord[] wordList) {
 		words=wordList;	
@@ -38,7 +40,14 @@ public class CatchWord extends Thread {
 		int i=0;
 		while (i<noWords) {		
 			while(pause.get()) {};
-			if (words[i].matchWord(target)) {
+			if (hungryWords[0].matchWord(target)) {
+				System.out.println(" hungry! " + target);
+				score.caughtWord(target.length());
+				hungryWords[0].resetWord();
+				hungryWords[0].startWaiting();
+				break;
+			}
+			else if (words[i].matchWord(target)) {
 				FallingWord max = words[i];
 				for (int j=i+1; j<noWords; j++) {
 					if (words[j].matchWord(target) && words[j].getY()>max.getY())
