@@ -5,7 +5,10 @@ public class WordDictionary {
 		"cranberry","blueberry","rhubarb","fruit","grapefruit","kumquat","tomato","berry",
 		"boysenberry","loquat","avocado"}; //default dictionary
 	
-	String[] theHungryDict = {"supercalifragilisticexpialidocious"
+	String[] theHungryDict = {
+		"preposterous", "josephine", "ribonucleic", "pterodactyl", "ibuprofen", "incomprehensible", "unbelievable",
+		"phenomenal", "supercalifragilisticexpialidocious", "tubercolosis", "paediatrician",
+		"osteoporosis", "encyclopaedia", "bibliography"
 	};
 
 	String[] dict;
