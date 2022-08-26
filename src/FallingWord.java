@@ -29,9 +29,9 @@ public class FallingWord {
 	
 	FallingWord(String text,int x, int maxY, int boundX) { //most commonly used constructor - sets it all.
 		this(text);
-		this.x=x; //only need to set x, word is at top of screen at start
 		this.maxY=maxY;
-		this.boundX=boundX;
+		this.boundX=boundX-wordLength();
+		this.x = x>boundX ? boundX:x; //only need to set x, word is at top of screen at start
 	}
 	
 	public static void increaseSpeed( ) {
@@ -82,15 +82,20 @@ public class FallingWord {
 		setY(y);
 		setX(x);
 	}
+	
+	public synchronized int wordLength() {
+		return getWord().length()*16;
+	}
+	
 	public synchronized void resetPos() {
-		setY(0);
+		setPos((int)(Math.random()*(boundX)), 0);
 	}
 
 	public synchronized void resetWord() {
 		resetPos();
 		word=dict.getNewWord();
 		dropped=false;
-		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
+		fallingSpeed=(int)(20); 
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
 	}
 	

@@ -193,7 +193,7 @@ public class TypingTutorApp {
 		score.reset();
 	  	//initialize shared array of current words with the words for this game
 		for (int i=0;i<noWords;i++) {
-			words[i]=new FallingWord(dict.getNewWord(),gameWindow.getValidXpos(),yLimit, gameWindow.height);
+			words[i]=new FallingWord(dict.getNewWord(),gameWindow.getValidXpos(),yLimit, gameWindow.width);
 		}
 
 		for (int i=0;i<noHungryWords;i++) {
@@ -247,6 +247,9 @@ public static void main(String[] args) {
 		totalWords=25;
 		noWords=6;
 		noHungryWords=1;
+		// changed the default dictionaries because they need to have mutually exclusive word sets otherwise there is potential
+		// for the user to be typing a falling word and the next hungry word just happens to be the same word then it disappears
+		// without offering anything
 		dict= new WordDictionary("normal");
 		hungryDict = new WordDictionary("hungry");
 		

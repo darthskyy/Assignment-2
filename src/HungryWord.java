@@ -81,8 +81,13 @@ public class HungryWord {
 		setY(y);
 		setX(x);
 	}
+
+	public synchronized int wordLength() {
+		return getWord().length()*16;
+	}
+	
 	public synchronized void resetPos() {
-		int y = (int)(Math.random()*boundY);
+		int y = 250+(int)(Math.random()*(boundY-250));
 		setPos(0, y);
 	}
 

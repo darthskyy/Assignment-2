@@ -37,6 +37,10 @@ public class GamePanel extends JPanel implements Runnable {
 		    width = getWidth()-borderWidth*2;
 		    height = getHeight()-borderWidth*2;
 		    g.clearRect(borderWidth,borderWidth,width,height);//the active space
+			g.setColor(Color.lightGray); //change colour of pen
+			g.fillRect(0,0,width+borderWidth*2,borderWidth);
+			g.fillRect(0, 0, borderWidth, height+borderWidth);
+			g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		    g.setColor(Color.pink); //change colour of pen
 		    g.fillRect(borderWidth,height,width,borderWidth); //draw danger zone
 
@@ -58,7 +62,8 @@ public class GamePanel extends JPanel implements Runnable {
 					g.drawString(hungryWords[i].getWord(),hungryWords[i].getX()-hungryWords[i].getWord().length()*16,hungryWords[i].getY()+borderWidth);
 					
 				}
-				// System.out.println("hungry word drawn");
+				
+				// for the falling words
 		    	for (int i=0;i<noWords-1;i++){	   
 					// g.setColor(Color.RED);
 					// g.fillRect(words[i].getX()+borderWidth, words[i].getY()-16, words[i].getWord().length()*15, 16); 	
@@ -71,15 +76,21 @@ public class GamePanel extends JPanel implements Runnable {
 				g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		   }
 		   else { if (won.get()) {
-			   g.setFont(new Font("Arial", Font.BOLD, 36));
-			   g.drawString("Well done!",width/3,height/2);
+			   g.setColor(new Color(204,226,163));
+			   g.fillRect(0,0,width+borderWidth*2,height+borderWidth);//the active space
+			   g.setColor(Color.black);
+			   g.setFont(new Font("Monospaced", Font.BOLD, 26));
+			   g.drawString("Well done!",width/3+70,height/2+50);
 			   g.setColor(Color.lightGray);
 			   g.fillRect(0,0,width+borderWidth*2,borderWidth);
 			   g.fillRect(0, 0, borderWidth, height+borderWidth);
 			   g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
 		   } else {
-			   g.setFont(new Font("Arial", Font.BOLD, 36));
-			   g.drawString("Game over!",width/2,height/2);
+			   g.setColor(new Color(197,40,61));
+			   g.fillRect(0,0,width+borderWidth*2,height+borderWidth);//the active space
+			   g.setColor(Color.lightGray);
+			   g.setFont(new Font("Monospaced", Font.BOLD, 26));
+			   g.drawString("Game over!",width/3+70,height/2);
 			   g.fillRect(0,0,width+borderWidth*2,borderWidth);
 			   g.fillRect(0, 0, borderWidth, height+borderWidth);
 			   g.fillRect(width+borderWidth, 0, borderWidth, height+borderWidth);
