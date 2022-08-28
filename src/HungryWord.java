@@ -87,7 +87,8 @@ public class HungryWord {
 	}
 	
 	public synchronized void resetPos() {
-		int y = 250+(int)(Math.random()*(boundY-250));
+		int y =240;
+		// int y = 120+(int)(Math.random()*(boundY-120)); //uncomment this line to make the hungry word appear at random places on the screen
 		setPos(0, y);
 	}
 

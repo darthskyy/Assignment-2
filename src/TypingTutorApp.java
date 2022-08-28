@@ -22,7 +22,7 @@ public class TypingTutorApp {
 	// sets the frames and the limits in either direction
    	static int frameX=1000;
 	static int frameY=600;
-	static int yLimit=470;
+	static int yLimit=480;
 	static int xLimit=1000;
 
 	// creates the dictionaries
@@ -274,8 +274,11 @@ public static void main(String[] args) {
 					noWords=Integer.parseInt(args[1]); // total words falling at any point
 					assert(totalWords>=noWords); // 
 					String[] tmpDict=getDictFromFile(args[2]); //file of words
-					if (tmpDict!=null)
+					if (tmpDict!=null) {
 						dict= new WordDictionary(tmpDict);
+						hungryDict = dict;
+						System.out.println(tmpDict[0]);
+					}
 		}
 				
 		FallingWord.dict=dict; //set the class dictionary for the words.

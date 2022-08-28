@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 				
 				// for the falling words
-		    	for (int i=0;i<noWords-1;i++){	   
+		    	for (int i=0;i<noWords;i++){	   
 					// g.setColor(Color.RED);
 					// g.fillRect(words[i].getX()+borderWidth, words[i].getY()-16, words[i].getWord().length()*15, 16); 	
 					g.setColor(Color.black);
