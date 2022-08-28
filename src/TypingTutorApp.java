@@ -150,6 +150,15 @@ public class TypingTutorApp {
 									e1.printStackTrace();
 								}
 					    }
+						for (int i=0;i<noHungryWords;i++) {
+							try {
+								if (hungryWrdShft[i].isAlive())	{
+							   hungryWrdShft[i].join();}
+						   } catch (InterruptedException e1) {
+							   // TODO Auto-generated catch block
+							   e1.printStackTrace();
+						   }
+				   }
 				}
 		});  //finish addActionListener
 					
