@@ -2,7 +2,7 @@ public class HungryWord {
 	private String word; // the word
 	private int x; //position - width
 	private int y; // postion - height
-	private int maxX, boundY; //maximum height
+	private int maxX, boundY; //maximum width and height
 	private boolean slid; //flag for if user does not manage to catch word in time
 	
 	private boolean waiting = true;
@@ -29,7 +29,7 @@ public class HungryWord {
 	HungryWord(String text,int y, int maxX, int boundY) { //most commonly used constructor - sets it all.
 		this(text);
 		this.y=y; //only need to set y, word is at top of screen at start
-		this.maxX=maxX;
+		this.maxX=maxX+wordLength();
 		this.boundY=boundY;
 	}
 	
