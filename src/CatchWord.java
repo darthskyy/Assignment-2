@@ -9,8 +9,7 @@ public class CatchWord extends Thread {
 	static AtomicBoolean pause; //REMOVE
 	
 	private static FallingWord[] words; //list of words
-	private static HungryWord hWord;
-	private static HungryWord[] hungryWords;
+	private static HungryWord[] hungryWords; // list of the Hungry words
 	private static int noWords, noHungryWords; //how many
 	private static Score score; //user score
 	
@@ -40,6 +39,8 @@ public class CatchWord extends Thread {
 		int i=0;
 		while (i<noWords) {		
 			while(pause.get()) {};
+			// if the hungry word and a falling word are the same it should eliminate the hungry word first
+			// only one index is used since there's only one hungry word at a time
 			if (hungryWords[0].matchWord(target)) {
 				System.out.println(" hungry! " + target);
 				score.caughtWord(target.length());
@@ -47,6 +48,9 @@ public class CatchWord extends Thread {
 				hungryWords[0].startWaiting();
 				break;
 			}
+			// when catching the falling words, it sets the first found word as the lowest word
+			// then searches the remainder of the falling words list to see if there's a lower one
+			// then resets the lowest
 			else if (words[i].matchWord(target)) {
 				FallingWord max = words[i];
 				for (int j=i+1; j<noWords; j++) {

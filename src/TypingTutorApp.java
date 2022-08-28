@@ -19,11 +19,13 @@ public class TypingTutorApp {
 	static int totalWords;
 	static int totalHungryWords;
 
+	// sets the frames and the limits in either direction
    	static int frameX=1000;
 	static int frameY=600;
-	static int yLimit=480;
+	static int yLimit=470;
 	static int xLimit=1000;
 
+	// creates the dictionaries
 	static WordDictionary dict = new WordDictionary("normal"); //use default dictionary, to read from file eventually
 	static WordDictionary hungryDict = new WordDictionary("hungry"); //use default dictionary, to read from file eventually
 

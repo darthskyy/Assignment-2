@@ -37,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable {
 		    width = getWidth()-borderWidth*2;
 		    height = getHeight()-borderWidth*2;
 		    g.clearRect(borderWidth,borderWidth,width,height);//the active space
+			
+			// setting the borders for the interface
 			g.setColor(Color.lightGray); //change colour of pen
 			g.fillRect(0,0,width+borderWidth*2,borderWidth);
 			g.fillRect(0, 0, borderWidth, height+borderWidth);
@@ -53,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 		    	
 		    }
 		    else if (!done.get()) {
+				// types the hungry words first then the falling words
 				g.setFont(new Font("Monospaced", Font.BOLD, 26));
 				for (int i = 0; i < noHungryWords; i++) {
 					// g.setColor(Color.BLUE);
@@ -70,6 +73,8 @@ public class GamePanel extends JPanel implements Runnable {
 					g.setColor(Color.black);
 		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	
 				}
+
+				// putting the borders on top of the word
 				g.setColor(Color.lightGray); //change colour of pen
 				g.fillRect(0,0,width+borderWidth*2,borderWidth);
 				g.fillRect(0, 0, borderWidth, height+borderWidth);
@@ -104,6 +109,10 @@ public class GamePanel extends JPanel implements Runnable {
 			return x;
 		}
 
+		/**
+		 * Gets a valid Y position for the hungry word
+		 * @return a valid y position
+		 */
 		public int getValidYpos() {
 			int height = getHeight()-borderWidth*4;
 			int y= (int)(Math.random() * height);

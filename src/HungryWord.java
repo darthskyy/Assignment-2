@@ -99,6 +99,11 @@ public class HungryWord {
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
 	}
 	
+	/**
+	 * Checks if the Hungry Word matches a string
+	 * @param typedText the text being compare to see if it matches the Hungry Word
+	 * @return true if they match and false if they do not
+	 */
 	public synchronized boolean matchWord(String typedText) {
 		//System.out.println("Matching against: "+text);
 		if (typedText.equals(this.word)) {
@@ -133,6 +138,10 @@ public class HungryWord {
 
 
 	// the box methods are for getting the bounds of the word
+	/**
+	 * Gets the coordinates of the corner points of a word (16 was just used as the arbitrary length of a character)
+	 * @return an integer arry with the coordinates
+	 */
 	public synchronized int[] getBox() {
 		int x1,x2,y1,y2;
 		x1 = getX() - getWord().length()*15;
@@ -144,6 +153,12 @@ public class HungryWord {
 		return array;
 	}
 
+
+	/**
+	 * Finds out if a Hungry Word collides with a Falling Word
+	 * @param fallingWord the Falling Word being checked for collision
+	 * @return true if they do overlap at some point, false otherwise
+	 */
 	public synchronized boolean collides(FallingWord fallingWord) {
 		int[] coordinates = getBox();
 		int[] coordinatesFalling = fallingWord.getBox();

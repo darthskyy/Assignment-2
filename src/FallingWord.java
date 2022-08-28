@@ -87,18 +87,31 @@ public class FallingWord {
 		return getWord().length()*16;
 	}
 	
+	/**
+	 * resets the falling word's position to a random x value and moves it back to the top
+	 */
 	public synchronized void resetPos() {
 		setPos((int)(Math.random()*(boundX)), 0);
 	}
 
+	public synchronized int wordPixels() {
+
+		return 1;
+	}
 	public synchronized void resetWord() {
 		resetPos();
 		word=dict.getNewWord();
+		// System.out.println(word + (double)26/word.length());
 		dropped=false;
-		fallingSpeed=(int)(20); 
+		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
 	}
 	
+	/**
+	 * Checks if the Falling Word matches a string
+	 * @param typedText the text being compare to see if it matches the Falling Word
+	 * @return true if they match and false if they do not
+	 */
 	public synchronized boolean matchWord(String typedText) {
 		//System.out.println("Matching against: "+text);
 		if (typedText.equals(this.word)) {
@@ -123,6 +136,10 @@ public class FallingWord {
 
 
 	// the box methods are for getting the bounds of the word
+	/**
+	 * Gets the coordinates of the corner points of a word (16 was just used as the arbitrary length of a character)
+	 * @return an integer arry with the coordinates
+	 */
 	public synchronized int[] getBox() {
 		int x1,x2,y1,y2;
 		x1 = getX();
